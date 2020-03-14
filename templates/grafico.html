@@ -1,0 +1,55 @@
+
+<a href="menu">Menu</a>
+
+{% block content %}
+  <div id="container" style="width: 90%;">
+    <canvas id="line"></canvas>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <script>
+
+    var config = {
+      type: 'line',
+
+      data: {
+        datasets: [{
+          data: {{ data|safe }},
+          borderColor: ["#51cfcf"],
+          fill: false,
+          lineTension: 0 ,
+          label:'Temperatura(°C)',
+          pointHitRadius: 5 ,
+          showLine: true,
+
+
+
+
+
+        }],
+        labels: {{ labels|safe }}
+      },
+      options: {
+        responsive: true
+
+      }
+    };
+
+    window.onload = function() {
+      var ctx = document.getElementById('line').getContext('2d');
+      window.myPie = new Chart(ctx, config);
+    };
+
+  </script>
+
+{% endblock %}
+
+<title>{{titulo}}</title>
+
+<p>La temperatura minima fue de {{min}} °C </p>
+<p></p>
+<p>La temperatura promedio fue de {{avg}} °C </p>
+<p></p>
+<p>La temperatura maxima fue de  {{max}} °C  </p>
+<p></p>
+<p>Numero de puntos: {{count}} / {{opcount}} </p>
